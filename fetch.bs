@@ -1035,8 +1035,6 @@ algorithm <var>processBodyChunk</var>, an algorithm <var>processEndOfBody</var>,
 must be an algorithm accepting no arguments.
 
 <ol>
- <li><p>Assert: <var>body</var>'s <a for=body>stream</a> is non-null.
-
  <li><p>If <var>taskDestination</var> is null, then set <var>taskDestination</var> to the result of
  <a>starting a new parallel queue</a>.
 
@@ -1134,8 +1132,6 @@ null), run these steps. <var>processBody</var> must be an algorithm accepting a
 <a for=/>body</a> <var>body</var>, run these steps:
 
 <ol>
- <li><p>Assert: <var>body</var>'s <a for=body>stream</a> is non-null.
-
  <li><p>Let <var>reader</var> be the result of <a for=ReadableStream>getting a reader</a> for
  <var>body</var>'s <a for=body>stream</a>. If that threw an exception, then return
  <a>a promise rejected with</a> that exception.
