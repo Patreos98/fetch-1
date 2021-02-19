@@ -1044,7 +1044,7 @@ must be an algorithm accepting no arguments.
   <p>Let <var>reader</var> be the result of <a for=ReadableStream>getting a reader</a> for
   <var>body</var>'s <a for=body>stream</a>.
 
-  <p class="note no-backref">This operation cannot throw an exception.
+  <p class=note>This operation ought not to throw an exception.
 
  <li><p>Perform the <a>incrementally-read loop</a> given <var>body</var>, <var>reader</var>,
  <var>taskDestination</var>, <var>processBodyChunk</var>, <var>processEndOfBody</var>, and
@@ -1098,14 +1098,8 @@ must be an algorithm accepting no arguments.
    <var>taskDestination</var>.</ol>
 
    <dt><a for="read request">error steps</a>, given <var>e</var>
-   <dd>
-    <ol>
-     <li><p>Let <var>errorAlgorithm</var> be this step: run <var>processBodyError</var> given
-     <var>e</var>.
-
-     <li><p><a>Queue a fetch task</a> given <var>errorAlgorithm</var> and
-     <var>taskDestination</var>.
-    </ol>
+   <dd><ol><li><p><a>Queue a fetch task</a> to run <var>processBodyError</var> given <var>e</var>,
+   with <var>taskDestination</var>.</ol>
   </dl>
 
  <li><p><a for=ReadableStreamDefaultReader>Read a chunk</a> from <var>reader</var> given
@@ -3668,28 +3662,21 @@ steps:
 <a for=/>response</a> <var>response</var>, run these steps:
 
 <ol>
- <li>
-  <p>If <var>fetchParams</var>'s <a for="fetch params">process response</a> is non-null, then:
-
-  <ol>
-   <li><p>Let <var>processResponse</var> be this step: run <var>fetchParams</var>'s
-   <a for="fetch params">process response</a> given <var>response</var>.
-
-   <li><p><a>Queue a fetch task</a> given <var>processResponse</var> and <var>fetchParams</var>'s
-   <a for="fetch params">task destination</a>.
-  </ol>
+ <li><p>If <var>fetchParams</var>'s <a for="fetch params">process response</a> is non-null, then
+ <a>queue a fetch task</a> to run <var>fetchParams</var>'s
+ <a for="fetch params">process response</a> given <var>response</var>, with <var>fetchParams</var>'s
+ <a for="fetch params">task destination</a>.
 
  <li>
   <p>If <var>fetchParams</var>'s <a for="fetch params">process response end-of-body</a> is non-null,
   then:
 
   <ol>
-   <li><p>Let <var>processBody</var> given <var>nullOrbytes</var> be this step: run
+   <li><p>Let <var>processBody</var> given <var>nullOrFailureOrBytes</var> be this step: run
    <var>fetchParams</var>'s <a for="fetch params">process response end-of-body</a> given
-   <var>response</var> and <var>nullOrbytes</var>.
+   <var>response</var> and <var>nullOrFailureOrBytes</var>.
 
-   <li><p>Let <var>processBodyError</var> be this step: run <var>fetchParams</var>'s
-   <a for="fetch params">process response end-of-body</a> given <var>response</var> and failure.
+   <li><p>Let <var>processBodyError</var> be to run <var>processBody</var> given failure.
 
    <li><p>If <var>response</var>'s <a for=response>body</a> is null, then <a>queue a fetch task</a>
    to <var>processBody</var> given null, with <var>fetchParams</var>'s
@@ -4699,17 +4686,11 @@ these steps:
     <p>To transmit <var>request</var>'s <a for=request>body</a> <var>body</var>, run these steps:
 
     <ol>
-     <li>
-      <p>If <var>body</var> is null and <var>fetchParams</var>'s
-      <a for="fetch params">process request end-of-body</a> is non-null, then:
-
-      <ol>
-       <li><p>Let <var>processRequestEndOfBody</var> be this step: run <var>fetchParams</var>'s
-       <a for="fetch params">process request end-of-body</a> given <var>request</var>.
-
-       <li><p><a>Queue a fetch task</a> given <var>processRequestEndOfBody</var> and
-       <var>fetchParams</var>'s <a for="fetch params">task destination</a>.
-      </ol>
+     <li><p>If <var>body</var> is null and <var>fetchParams</var>'s
+     <a for="fetch params">process request end-of-body</a> is non-null, then
+     <a>queue a fetch task</a> given <var>fetchParams</var>'s
+     <a for="fetch params">process request end-of-body</a> and <var>fetchParams</var>'s
+     <a for="fetch params">task destination</a>.
 
      <li>
       <p>Otherwise, if <var>body</var> is non-null:
