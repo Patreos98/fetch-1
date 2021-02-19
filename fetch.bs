@@ -3275,15 +3275,9 @@ the request.
  <a for="fetch params">process response end-of-body</a> is <var>processResponseEndOfBody</var>, and
  <a for="fetch params">task destination</a> is <var>taskDestination</var>.
 
- <li>
-  <p>If <var>request</var>'s <a for=request>body</a> is a <a for=/>byte sequence</a>, then:
-
-  <ol>
-   <li><p>Let <var>body</var> and <var ignore>ignoreType</var> be the result of
-   <a for=BodyInit>safely extracting</a> <var>request</var>'s <a for=request>body</a>.
-
-   <li><p>Set <var>request</var>'s <a for=request>body</a> to <var>body</var>.
-  </ol>
+ <li><p>If <var>request</var>'s <a for=request>body</a> is a <a for=/>byte sequence</a>, then set
+ <var>request</var>'s <a for=request>body</a> to the first return value of
+ <a for=BodyInit>safely extracting</a> <var>request</var>'s <a for=request>body</a>.
 
  <li><p>If <var>request</var>'s <a for=request>window</a> is "<code>client</code>", then set
  <var>request</var>'s <a for=request>window</a> to <var>request</var>'s <a for=request>client</a>,
@@ -3641,10 +3635,8 @@ steps:
      <var>request</var>'s <a for=request>integrity metadata</a>, then run
      <var>processBodyError</var> and abort these steps. [[!SRI]]
 
-     <li><p>Let <var>body</var> and <var ignore>ignoreType</var> be the result of
+     <li><p>Set <var>response</var>'s <a for=response>body</a> to the first return value of
      <a for=BodyInit>safely extracting</a> <var>bytes</var>.
-
-     <li><p>Set <var>response</var>'s <a for=response>body</a> to <var>body</var>.
 
      <li><p>Run <a>fetch finale</a> given <var>fetchParams</var> and <var>response</var>.
     </ol>
