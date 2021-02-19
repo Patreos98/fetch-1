@@ -1031,8 +1031,8 @@ algorithm <var>processBodyChunk</var>, an algorithm <var>processEndOfBody</var>,
 <var>processBodyError</var>, and an optional null, <a for=/>parallel queue</a>, or
 <a for=/>global object</a> <var>taskDestination</var> (default null), run these steps.
 <var>processBodyChunk</var> must be an algorithm accepting a <a for=/>byte sequence</a>.
-<var>processBodyError</var> must be an algorithm accepting an exception. <var>processEndOfBody</var>
-must be an algorithm accepting no arguments.
+<var>processEndOfBody</var> must be an algorithm accepting no arguments. <var>processBodyError</var>
+must be an algorithm accepting an exception.
 
 <ol>
  <li><p>If <var>taskDestination</var> is null, then set <var>taskDestination</var> to the result of
@@ -1044,7 +1044,7 @@ must be an algorithm accepting no arguments.
 
   <p class=note>This operation ought not to throw an exception.
 
- <li><p>Perform the <a>incrementally-read loop</a> given <var>body</var>, <var>reader</var>,
+ <li><p>Perform the <a>incrementally-read loop</a> given <var>reader</var>,
  <var>taskDestination</var>, <var>processBodyChunk</var>, <var>processEndOfBody</var>, and
  <var>processBodyError</var>.
 </ol>
@@ -1082,8 +1082,8 @@ must be an algorithm accepting no arguments.
          <li><p>Run <var>processBodyChunk</var> given <var>bytes</var>.
 
          <li><p>Perform the <a>incrementally-read loop</a> given <var>reader</var>,
-         <var>taskDestination</var>, <var>processBodyChunk</var>, <var>processBodyError</var>, and
-         <var>processEndOfBody</var>.
+         <var>taskDestination</var>, <var>processBodyChunk</var>, <var>processEndOfBody</var>, and
+         <var>processBodyError</var>.
         </ol>
       </ol>
 
